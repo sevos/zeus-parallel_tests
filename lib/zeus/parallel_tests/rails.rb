@@ -1,8 +1,6 @@
 module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
-      include Monkey::RailsTestAcceptsArgv
-
       def parallel_rspec
         argv = ARGV.dup
         test_env_number = nil
