@@ -3,7 +3,7 @@ module Zeus
     class Rails < ::Zeus::Rails
       def parallel_rspec
         argv = ARGV.dup
-        test_env_number = args.shift
+        test_env_number = argv.shift
         # Parallels spec reuse main test db instead of db with "1" appended
         test_env_number = nil if test_env_number == "1"
 
@@ -24,7 +24,7 @@ module Zeus
         ENV['TEST_ENV_NUMBER'] = test_env_number
         ENV['PARALLEL_TEST_GROUPS'] = argv.shift
 
-        rspec_args_file = args.shift
+        rspec_args_file = argv.shift
         test_files = File.readlines(rspec_args_file).map(&:chomp)
 
         test(test_files.unshift("--colour").unshift("--tty"))
