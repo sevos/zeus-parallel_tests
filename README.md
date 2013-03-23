@@ -1,6 +1,64 @@
 # Zeus::ParallelTests
 
-TODO: Write a gem description
+[Zeus](https://github.com/burke/zeus) is a tool for speeding up your tests by preloading a Rails app.
+[parallel_tests](https://github.com/grosser/parallel_tests) also speeds up your tests by running them, well,
+in parallel. Two good gems, so why not to use them together? Let's make our CPUs sweat!
+
+## Show me the numbers!
+
+### RSpec
+
+```
+$ time rspec spec
+
+...
+
+Finished in 1 minute 8.34 seconds
+916 examples, 0 failures
+
+real    1m21.480s
+user    1m4.805s
+sys     0m4.516s
+```
+
+### parallel_tests
+
+```
+$ time rake parallel:spec[8]
+Using recorded test runtime
+8 processes for 141 specs, ~ 17 specs per process
+
+...
+
+916 examples, 0 failures
+
+Took 46.626499 seconds
+
+real    0m55.790s
+user    4m3.065s
+sys     0m32.160s
+```
+
+### Zeus+parallel_tests
+
+```
+$ time zeus rake parallel:spec[8]
+Developer helpers loaded
+Using recorded test runtime
+8 processes for 141 specs, ~ 17 specs per process
+
+...
+
+916 examples, 0 failures
+
+Took 26.610327 seconds
+
+real    0m28.514s
+user    0m0.732s
+sys     0m0.061s
+```
+
+Ready to go?
 
 ## Installation
 
@@ -12,13 +70,33 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+You need also to initialize your project with custom Zeus plan:
 
-    $ gem install zeus-parallel_tests
+    $ zeus-parallel_spec init
+    
+This will create three files in your project:
+
+* custom_plan.rb
+* zeus.json
+* script/spec (file used by parallel specs)
 
 ## Usage
 
-TODO: Write usage instructions here
+First [follow instructions](https://github.com/grosser/parallel_tests) and prepare
+your application to use parallel_tests.
+
+Launch another terminal and run zeus' master process:
+
+    $ bundle exec zeus start
+    
+Then you can run your parallel specs:
+
+    $ zeus rake parallel
+    
+## What is supported?
+
+* RSpec only for now
+* guard-rspec (just pass `zeus: true` and `parallel: true` into configuration hash)
 
 ## Contributing
 
