@@ -8,7 +8,7 @@ unless ARGV == ["init"]
   exit 1
 end
 
-def copy(file, target_dir)
+def copy(file, target_dir, mode = 0644)
   templates_dir = File.expand_path("../../lib/zeus/parallel_tests/templates/", __FILE__)
   source_file = File.join(templates_dir, file)
   dest_file  = File.join(File.expand_path(target_dir), file)
@@ -20,8 +20,9 @@ def copy(file, target_dir)
     end
   end
   FileUtils.cp(source_file, dest_file)
+  FileUtils.chmod(mode, dest_file)
 end
 
 copy "custom_plan.rb", "./"
 copy "zeus.json", "./"
-copy "spec", "script/"
+copy "spec", "script/", 0755
