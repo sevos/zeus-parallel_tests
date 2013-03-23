@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'tempfile'
+
+test_env_number = ENV['TEST_ENV_NUMBER'] || 1
+test_env_number = 1 if test_env_number == ""
+
+rspec_args_file = Tempfile.new("rspec_args")
+ARGV.each do |arg|
+  rspec_args_file.puts arg
+end
+
+rspec_args_file.close
+
+system %{zeus parallel_rspec #{test_env_number} #{ENV['PARALLEL_TEST_GROUPS']} #{rspec_args_file.path}}
+status = $?
+
+rspec_args_file.unlink
+
+exit status.to_i
