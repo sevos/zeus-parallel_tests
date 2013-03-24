@@ -75,7 +75,7 @@ And then execute:
 
 You need also to initialize your project with custom Zeus plan:
 
-    $ zeus-parallel_spec init
+    $ zeus-parallel_tests init
 
 This will create three files in your project:
 
