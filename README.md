@@ -101,6 +101,11 @@ Then you can run your parallel specs:
 * RSpec only for now
 * guard-rspec (just pass `zeus: true` and `parallel: true` into configuration hash)
 
+## TODO
+
+[ ] smoke tests
+[ ] minitest support
+
 ## Contributing
 
 1. Fork it
