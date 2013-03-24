@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
 require 'tmpdir'
 require 'fileutils'
 
@@ -7,7 +7,7 @@ describe 'zeus-parallel_tests' do
     @project_dir = File.expand_path(Dir.mktmpdir)
     Dir.mkdir(File.join(@project_dir, "script"))
 
-    bin = File.expand_path('../../bin/zeus-parallel_tests', __FILE__)
+    bin = File.expand_path('../../../bin/zeus-parallel_tests', __FILE__)
     @run = -> { system("#{bin} init &>/dev/null", chdir: @project_dir) }
   end
 
