@@ -103,8 +103,8 @@ Then you can run your parallel specs:
 
 ## TODO
 
-[ ] smoke tests
-[ ] minitest support
+* smoke tests
+* minitest support
 
 ## Contributing
 
