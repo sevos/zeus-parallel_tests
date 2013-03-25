@@ -19,7 +19,7 @@ describe 'zeus-parallel_tests' do
   it "creates zeus configuration and script/spec in projects directory" do
     @run.call
 
-    expected_files = ['zeus.json', 'custom_plan.rb', 'script/spec'].
+    expected_files = ['zeus.json', 'custom_plan.rb'].
       map { |f| File.join(@project_dir, f) }
 
     expected_files.each do |f|
