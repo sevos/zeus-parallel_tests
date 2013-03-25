@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "zeus", "~> 0.13.3"
-  spec.add_dependency "parallel_tests", "~> 0.10.3"
+  spec.add_dependency "parallel_tests", "~> 0.10.4"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
