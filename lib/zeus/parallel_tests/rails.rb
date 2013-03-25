@@ -2,6 +2,11 @@ module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
       def parallel_rspec
+        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../templates/spec", __FILE__)}"']
+        exec "#{executable} parallel_rspec #{ARGV.join(' ')}"
+      end
+
+      def parallel_rspec_worker
         argv = ARGV.dup
         test_env_number = argv.shift
         # Parallels spec reuse main test db instead of db with "1" appended

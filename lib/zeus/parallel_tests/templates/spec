@@ -11,7 +11,7 @@ end
 
 rspec_args_file.close
 
-system %{zeus parallel_rspec #{test_env_number} #{ENV['PARALLEL_TEST_GROUPS']} #{rspec_args_file.path}}
+system %{zeus parallel_rspec_worker #{test_env_number} #{ENV['PARALLEL_TEST_GROUPS']} #{rspec_args_file.path}}
 status = $?
 
 rspec_args_file.unlink
