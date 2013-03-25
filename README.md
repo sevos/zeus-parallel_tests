@@ -77,11 +77,10 @@ You need also to initialize your project with custom Zeus plan:
 
     $ zeus-parallel_tests init
 
-This will create three files in your project:
+This will create two files in your project:
 
 * custom_plan.rb
 * zeus.json
-* script/spec (file used by parallel specs)
 
 ## Usage
 
@@ -105,6 +104,7 @@ Then you can run your parallel specs:
 
 * smoke tests
 * minitest support
+* cucumber support
 
 ## Contributing
 
