@@ -40,3 +40,8 @@ module Zeus::ParallelTests
   end
 end
 
+if $PROGRAM_NAME == __FILE__
+  argv = ARGV.dup
+  exit Zeus::ParallelTests::Worker.new argv.shift, argv
+end
+

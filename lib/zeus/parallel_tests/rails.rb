@@ -4,7 +4,7 @@ module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
       def parallel_cucumber
-        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../worker/cucumber.rb", __FILE__)}"']
+        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../worker.rb", __FILE__)} cucumber"']
         exec "#{executable} parallel_cucumber #{ARGV.join(' ')}"
       end
 
@@ -38,7 +38,7 @@ module Zeus
       end
 
       def parallel_rspec
-        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../worker/rspec.rb", __FILE__)}"']
+        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../worker", __FILE__)} rspec"']
         exec "#{executable} parallel_rspec #{ARGV.join(' ')}"
       end
 
