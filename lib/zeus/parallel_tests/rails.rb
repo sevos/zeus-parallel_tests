@@ -1,11 +1,15 @@
 require_relative '../parallel_tests'
+require_relative 'worker'
 
 module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
       def parallel_cucumber
-        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../worker.rb", __FILE__)} cucumber"']
-        exec "#{executable} parallel_cucumber #{ARGV.join(' ')}"
+        exec parallel_runner_command "cucumber", ARGV
+      end
+
+      def parallel_rspec
+        exec parallel_runner_command "rspec", ARGV
       end
 
       def parallel_cucumber_worker
@@ -35,11 +39,6 @@ module Zeus
         test_files = File.readlines(rspec_args_file).map(&:chomp)
 
         cucumber(test_files)
-      end
-
-      def parallel_rspec
-        executable = %[PARALLEL_TESTS_EXECUTABLE='ruby "#{File.expand_path("../worker", __FILE__)} rspec"']
-        exec "#{executable} parallel_rspec #{ARGV.join(' ')}"
       end
 
       def parallel_rspec_worker
@@ -86,6 +85,13 @@ module Zeus
         had_failures = cucumber_main.execute!(@cucumber_runtime)
         exit_code = had_failures ? 1 : 0
         exit exit_code
+      end
+
+      private
+
+      def parallel_runner_command(suite, argv)
+        env_slave_path = %[PARALLEL_TESTS_EXECUTABLE='#{Worker.command suite}']
+        "#{env_slave_path} parallel_#{suite} #{argv.join ' '}"
       end
 
     end

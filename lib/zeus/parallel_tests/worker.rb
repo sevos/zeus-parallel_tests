@@ -3,6 +3,10 @@ require 'tempfile'
 
 module Zeus::ParallelTests
   class Worker
+    def self.command(suite)
+      "ruby #{__FILE__} #{suite}"
+    end
+
     def initialize(suite, env, argv)
       @env = env
       @argv = argv
@@ -42,6 +46,6 @@ end
 
 if $PROGRAM_NAME == __FILE__
   argv = ARGV.dup
-  exit Zeus::ParallelTests::Worker.new argv.shift, argv
+  exit Zeus::ParallelTests::Worker.new(argv.shift, ENV, argv).call.to_i
 end
 
