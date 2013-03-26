@@ -13,62 +13,14 @@ module Zeus
       end
 
       def parallel_cucumber_worker
-        argv = ARGV.dup
-        test_env_number = argv.shift
-        # Parallels spec reuse main test db instead of db with "1" appended
-        test_env_number = nil if test_env_number == "1"
-
-        return unless defined?(ActiveRecord::Base)
-        begin
-          ActiveRecord::Base.clear_all_connections!
-
-          config = ActiveRecord::Base.connection_config
-          config[:database] = "#{config[:database]}#{test_env_number}"
-
-          ActiveRecord::Base.establish_connection(config)
-          if ActiveRecord::Base.respond_to?(:shared_connection)
-            ActiveRecord::Base.shared_connection = ActiveRecord::Base.retrieve_connection
-          end
-        rescue ActiveRecord::AdapterNotSpecified
-        end
-
-        ENV['TEST_ENV_NUMBER'] = test_env_number
-        ENV['PARALLEL_TEST_GROUPS'] = argv.shift
-
-        rspec_args_file = argv.shift
-        test_files = File.readlines(rspec_args_file).map(&:chomp)
-
-        cucumber(test_files)
+        spawn_slave { |args| cucumber(args) }
       end
 
       def parallel_rspec_worker
-        argv = ARGV.dup
-        test_env_number = argv.shift
-        # Parallels spec reuse main test db instead of db with "1" appended
-        test_env_number = nil if test_env_number == "1"
-
-        return unless defined?(ActiveRecord::Base)
-        begin
-          ActiveRecord::Base.clear_all_connections!
-
-          config = ActiveRecord::Base.connection_config
-          config[:database] = "#{config[:database]}#{test_env_number}"
-
-          ActiveRecord::Base.establish_connection(config)
-          if ActiveRecord::Base.respond_to?(:shared_connection)
-            ActiveRecord::Base.shared_connection = ActiveRecord::Base.retrieve_connection
-          end
-        rescue ActiveRecord::AdapterNotSpecified
-        end
-
-        ENV['TEST_ENV_NUMBER'] = test_env_number
-        ENV['PARALLEL_TEST_GROUPS'] = argv.shift
-
-        rspec_args_file = argv.shift
-        test_files = File.readlines(rspec_args_file).map(&:chomp)
-
-        test(test_files.unshift("--colour").unshift("--tty"))
+        spawn_slave { |args| test(["--color", "--tty", *args]) }
       end
+
+      # Patches required in Zeus
 
       def test(argv = ARGV)
         if spec_file?(argv) && defined?(RSpec)
@@ -87,6 +39,8 @@ module Zeus
         exit exit_code
       end
 
+      # End of patches for Zeus
+
       private
 
       def parallel_runner_command(suite, argv)
@@ -94,6 +48,37 @@ module Zeus
         "#{env_slave_path} parallel_#{suite} #{argv.join ' '}"
       end
 
+      def spawn_slave
+        worker, workers_count, args_file = ARGV
+        # Parallels spec reuse main test db instead of db with "1" appended
+        ENV['TEST_ENV_NUMBER'] = test_env_number = (worker == "1" ? nil : worker)
+        ENV['PARALLEL_TEST_GROUPS'] = workers_count
+
+        reconfigure_activerecord test_env_number
+
+        yield load_args_from_file(args_file)
+      end
+
+      def load_args_from_file(path)
+        File.readlines(path).map(&:chomp)
+      end
+
+      def reconfigure_activerecord(test_env_number)
+        return unless defined?(ActiveRecord::Base)
+        begin
+          ActiveRecord::Base.clear_all_connections!
+
+          config = ActiveRecord::Base.connection_config
+          config[:database] = "#{config[:database]}#{test_env_number}"
+
+          ActiveRecord::Base.establish_connection(config)
+          puts "Connecting to #{ActiveRecord::Base.connection_config[:database]}"
+          if ActiveRecord::Base.respond_to?(:shared_connection)
+            ActiveRecord::Base.shared_connection = ActiveRecord::Base.retrieve_connection
+          end
+        rescue ActiveRecord::AdapterNotSpecified
+        end
+      end
     end
   end
 end
