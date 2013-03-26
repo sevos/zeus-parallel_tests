@@ -82,6 +82,10 @@ This will create two files in your project:
 * custom_plan.rb
 * zeus.json
 
+### RVM
+
+For RVM users it is recommended to install rvm-bundler gem.
+
 ## Usage
 
 First [follow instructions](https://github.com/grosser/parallel_tests) and prepare
@@ -93,18 +97,23 @@ Launch another terminal and run zeus' master process:
 
 Then you can run your parallel specs:
 
-    $ zeus rake parallel
+    $ zeus parallel_rspec spec
+
+or your cucumbers:
+
+    $ zeus parallel_cucumber features
 
 ## What is supported?
 
-* RSpec only for now
-* guard-rspec (just pass `zeus: true` and `parallel: true` into configuration hash)
+* rspec
+* cucumber
 
 ## TODO
 
 * smoke tests
 * minitest support
 * cucumber support
+* guard-rspec <del>(just pass `zeus: true` and `parallel: true` into configuration hash)</del>
 
 ## Contributing
 
