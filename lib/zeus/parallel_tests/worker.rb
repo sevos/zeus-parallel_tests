@@ -1,3 +1,4 @@
+require_relative '../parallel_tests'
 require 'tempfile'
 
 module Zeus::ParallelTests
@@ -9,7 +10,7 @@ module Zeus::ParallelTests
     end
 
     def call
-      system %{zeus parallel_#{@suite}_worker #{parallel_tests_attributes} #{args_file.path}}
+      system %{zeus parallel_#{@suite}_worker #{parallel_tests_attributes}}
       args_file.unlink
       $?.to_i
     end
@@ -18,7 +19,8 @@ module Zeus::ParallelTests
 
     def parallel_tests_attributes
       [test_env_number.to_s,
-       @env['PARALLEL_TEST_GROUPS']].join(' ')
+       @env['PARALLEL_TEST_GROUPS'],
+       args_file.path].join(' ')
     end
 
     def args_file
@@ -33,7 +35,7 @@ module Zeus::ParallelTests
     end
 
     def test_env_number
-      @env['TEST_ENV_NUMBER'] || 1
+      @env['TEST_ENV_NUMBER'] != "" && @env['TEST_ENV_NUMBER'] || 1
     end
   end
 end

@@ -1,3 +1,5 @@
+require_relative '../parallel_tests'
+
 module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
