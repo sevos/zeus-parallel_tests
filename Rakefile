@@ -1,20 +1,17 @@
 require "bundler/gem_tasks"
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-task :default => [:test]
+RSpec::Core::RakeTask.new(:spec)
 
-Rake::TestTask.new do |t|
-  t.libs.push "lib"
-  t.test_files = FileList[File.expand_path('../test/**/*_test.rb', __FILE__)]
-  t.verbose = true
-end
-
-
+task :default => :spec
 namespace :travis do
-  Rake::TestTask.new do |t|
-    t.libs.push "lib"
-    t.test_files = FileList[File.expand_path('../test/**/*_test.rb', __FILE__)] -
-      FileList[File.expand_path('../test/slow/*_test.rb', __FILE__)]
-    t.verbose = true
+  RSpec::Core::RakeTask.new(:spec) do |task|
+    file_list = FileList['spec/**/*_spec.rb']
+
+    %w(slow).each do |exclude|
+      file_list = file_list.exclude("spec/#{exclude}/**/*_spec.rb")
+    end
+
+    task.pattern = file_list
   end
 end

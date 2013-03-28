@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require 'spec_helper'
 require 'tmpdir'
 require 'fileutils'
 
@@ -23,7 +23,7 @@ describe 'zeus-parallel_tests' do
       map { |f| File.join(@project_dir, f) }
 
     expected_files.each do |f|
-      assert File.exists?(f), "#{f} should exists"
+      File.exists?(f).should be_true
     end
   end
 end

@@ -54,6 +54,7 @@ describe Zeus::ParallelTests::Worker do
     end
 
     it "returns exit code" do
+      system "true"
       worker.should_receive(:system) { $?.stub(to_i: 1) }
       expect(subject).to eq(1)
     end
