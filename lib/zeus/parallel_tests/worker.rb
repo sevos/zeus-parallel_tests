@@ -3,6 +3,11 @@ require 'tempfile'
 
 module Zeus::ParallelTests
   class Worker
+    def self.run(argv, env)
+      dumped_argv = argv.dup
+      new(dumped_argv.shift, env, dumped_argv).spawn
+    end
+
     def self.command(suite)
       "ruby #{__FILE__} #{suite}"
     end
@@ -13,7 +18,7 @@ module Zeus::ParallelTests
       @suite = suite
     end
 
-    def call
+    def spawn
       system %{zeus parallel_#{@suite}_worker #{parallel_tests_attributes}}
       args_file.unlink
       $?.to_i
@@ -45,7 +50,6 @@ module Zeus::ParallelTests
 end
 
 if $PROGRAM_NAME == __FILE__
-  argv = ARGV.dup
-  exit Zeus::ParallelTests::Worker.new(argv.shift, ENV, argv).call.to_i
+  exit Zeus::ParallelTests::Worker.run(ARGV, ENV)
 end
 
