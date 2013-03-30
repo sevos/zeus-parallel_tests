@@ -1,0 +1,31 @@
+{
+  "command": "ruby -rubygems -r./custom_plan -eZeus.go",
+
+  "plan": {
+    "boot": {
+      "default_bundle": {
+        "development_environment": {
+          "prerake": {"rake": []},
+          "runner": ["r"],
+          "console": ["c"],
+          "server": ["s"],
+          "generate": ["g"],
+          "destroy": ["d"],
+          "dbconsole": [],
+          "parallel_rspec": [],
+          "parallel_cucumber": []
+        },
+        "test_environment": {
+          "cucumber_environment": {
+                  "cucumber": [],
+                  "parallel_cucumber_worker": []
+	  },
+          "test_helper": {
+                  "test": ["rspec", "testrb"],
+                  "parallel_rspec_worker": []
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,9 @@ gem 'rails', '3.2.13'
 gem 'sqlite3'
 
 gem "rspec-rails"
-
+gem 'cucumber-rails'
+gem "zeus-parallel_tests"
+gem 'turn', require: false
 
 
 # To use ActiveModel has_secure_password
