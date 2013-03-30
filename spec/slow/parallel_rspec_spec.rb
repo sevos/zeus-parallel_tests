@@ -19,17 +19,20 @@ describe "zeus parallel_rspec spec" do
   end
 
   def launch_server
-    # pid = fork do
-    #   Dir.chdir "spec/dummy"
-    #   exec "sh -c 'zeus start'"
-    # end
-    # sleep 3
-    # pid
+    pid = fork do
+      Dir.chdir "spec/dummy/"
+      system "bundle install"
+      exec "bundle exec zeus start &>/dev/null"
+    end
+    sleep 3
+    pid
   end
 
   before(:all) do
     build_gem
     install_gem
+    print "Launch zeus server for dummy app in separate console and press ENTER "
+    $stdin.getc
     # @server_pid = launch_server.to_i
     Dir.chdir "spec/dummy/"
   end
@@ -39,16 +42,15 @@ describe "zeus parallel_rspec spec" do
   end
 
   it 'runs specs in two processes' do
-    result_output = ""
     Open3.popen2e("zeus", "parallel_rspec", "-n", "2" "spec") do |input, output, t|
       expect(output.to_a.map(&:chomp)).to include("2 processes for 2 specs, ~ 1 specs per process")
     end
   end
 
-
   after(:all) do
     # system "kill -9 #{@server_pid.to_s}"
-    # uninstall_gem
+    # system "rm -fr .zeus.sock"
+    uninstall_gem
   end
 end
 
