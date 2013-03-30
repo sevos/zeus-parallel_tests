@@ -15,7 +15,6 @@ module Zeus::ParallelTests
     def initialize(suite, env, argv)
       @env = env
       @argv = argv
-      puts "Ran with argv: #{@argv.join(' ')}"
       @suite = suite
     end
 
