@@ -17,7 +17,7 @@ module Zeus
       end
 
       def parallel_rspec_worker
-        spawn_slave { |args| test(["--color", "--tty", *args]) }
+        spawn_slave { |args| test(args) }
       end
 
       # Patches required in Zeus
