@@ -107,13 +107,12 @@ or your cucumbers:
 
 * rspec
 * cucumber
+* guard-rspec (just pass `zeus: true` and `parallel: true` into configuration hash, you can play with `bundler: false` option to speed things up)
 
 ## TODO
 
-* smoke tests
 * minitest support
-* cucumber support
-* guard-rspec <del>(just pass `zeus: true` and `parallel: true` into configuration hash)</del>
+
 
 ## Contributing
 
