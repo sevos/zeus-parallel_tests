@@ -45,7 +45,13 @@ module Zeus
 
       def parallel_runner_command(suite, argv)
         env_slave_path = %[PARALLEL_TESTS_EXECUTABLE='#{Worker.command suite}']
-        "#{env_slave_path} parallel_#{suite} #{argv.join ' '}"
+        "#{env_slave_path} parallel_#{suite} #{merge_argv(argv)}"
+      end
+
+      def merge_argv(argv)
+        argv.map { |arg|
+          arg.include?(' ') ? %{"#{arg}"} : arg
+        }.join(" ")
       end
 
       def spawn_slave
@@ -72,7 +78,6 @@ module Zeus
           config[:database] = "#{config[:database]}#{test_env_number}"
 
           ActiveRecord::Base.establish_connection(config)
-          puts "Connecting to #{ActiveRecord::Base.connection_config[:database]}"
           if ActiveRecord::Base.respond_to?(:shared_connection)
             ActiveRecord::Base.shared_connection = ActiveRecord::Base.retrieve_connection
           end

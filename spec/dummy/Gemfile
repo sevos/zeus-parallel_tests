@@ -12,6 +12,7 @@ gem 'cucumber-rails', require: false
 gem "zeus-parallel_tests"
 gem 'database_cleaner'
 gem 'turn', require: false
+gem 'guard-rspec'
 
 
 # To use ActiveModel has_secure_password
