@@ -64,6 +64,8 @@ sys     0m0.061s
 Ready to go?
 
 ## Installation
+  
+[RailsCast episode #413 Fast Tests](http://railscasts.com/episodes/413-fast-tests)  
 
 Add this line to your application's Gemfile:
 
