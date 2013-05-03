@@ -9,7 +9,10 @@ module Zeus
       end
 
       def parallel_rspec
-        exec parallel_runner_command "rspec", ARGV
+        argv = ARGV.dup
+        argv.delete("--color")  # remove this argument from list
+        argv.delete("--colour") # because it was causing bug #14
+        exec parallel_runner_command "rspec", argv
       end
 
       def parallel_cucumber_worker
