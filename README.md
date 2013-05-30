@@ -86,7 +86,7 @@ This will create two files in your project:
 
 ### RVM
 
-For RVM users it is recommended to install rvm-bundler gem.
+For RVM users it is recommended to install rubygems-bundler gem.
 
 ## Usage
 
