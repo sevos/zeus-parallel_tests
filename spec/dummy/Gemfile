@@ -9,7 +9,7 @@ gem 'sqlite3'
 
 gem "rspec-rails"
 gem 'cucumber-rails', require: false
-gem "zeus-parallel_tests"
+gem "zeus-parallel_tests", path: '../../../zeus-parallel_tests'
 gem 'database_cleaner'
 gem 'turn', require: false
 gem 'guard-rspec'

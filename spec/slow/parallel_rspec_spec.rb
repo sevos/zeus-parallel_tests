@@ -42,7 +42,7 @@ describe "zeus parallel_rspec spec" do
   end
 
   it 'runs specs in two processes' do
-    Open3.popen2e("zeus", "parallel_rspec", "-n", "2" "spec") do |input, output, t|
+    Open3.popen2e("zeus", "parallel_rspec", "-n", "2", "spec") do |input, output, t|
       expect(output.to_a.map(&:chomp)).to include("2 processes for 2 specs, ~ 1 specs per process")
     end
   end
