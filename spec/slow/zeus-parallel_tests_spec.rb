@@ -23,7 +23,7 @@ describe 'zeus-parallel_tests' do
       map { |f| File.join(@project_dir, f) }
 
     expected_files.each do |f|
-      File.exists?(f).should be_true
+      expect(File.exists?(f)).to be_truthy
     end
   end
 end

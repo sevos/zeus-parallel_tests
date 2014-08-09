@@ -38,7 +38,7 @@ describe "zeus parallel_rspec spec" do
   end
 
   it "connects to server" do
-    expect(system("zeus r true &>/dev/null")).to be_true
+    expect(system("zeus r true &>/dev/null")).to be_truthy
   end
 
   it 'runs specs in two processes' do

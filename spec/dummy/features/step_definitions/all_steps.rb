@@ -3,5 +3,5 @@ Given(/^everything is setup$/) do
 end
 
 Then(/^everything works$/) do
-  expect(@everything).to be_true
+  expect(@everything).to be_truthy
 end
