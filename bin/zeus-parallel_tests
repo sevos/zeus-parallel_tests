@@ -2,25 +2,23 @@
 
 require 'fileutils'
 
-unless ARGV == ["init"]
-  puts "Usage:"
+unless ARGV == ['init']
+  puts 'Usage:'
   puts "  zeus-parallel_specs init\t\tInitializes custom plan and script/spec"
   exit 1
 end
 
 def copy(file, target_dir)
-  templates_dir = File.expand_path("../../lib/zeus/parallel_tests/templates/", __FILE__)
+  templates_dir = File.expand_path('../../lib/zeus/parallel_tests/templates/', __FILE__)
   source_file = File.join(templates_dir, file)
   dest_file  = File.join(File.expand_path(target_dir), file)
   puts "Creating #{dest_file}"
-  if File.exists?(dest_file)
-    print "File exists, overwrite? [y/n} "
-    unless $stdin.gets.chomp == "y"
-      puts "skipped"
-    end
+  if File.exist?(dest_file)
+    print 'File exists, overwrite? [y/n} '
+    puts 'skipped' unless $stdin.gets.chomp == 'y'
   end
   FileUtils.cp(source_file, dest_file)
 end
 
-copy "custom_plan.rb", "./"
-copy "zeus.json", "./"
+copy 'custom_plan.rb', './'
+copy 'zeus.json', './'

@@ -1,9 +1,9 @@
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
+task default: :spec
 namespace :travis do
   RSpec::Core::RakeTask.new(:spec) do |task|
     file_list = FileList['spec/**/*_spec.rb']

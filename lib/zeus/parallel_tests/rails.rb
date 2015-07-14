@@ -5,14 +5,14 @@ module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
       def parallel_cucumber
-        exec parallel_runner_command "cucumber", ARGV
+        exec parallel_runner_command 'cucumber', ARGV
       end
 
       def parallel_rspec
         argv = ARGV.dup
-        argv.delete("--color")  # remove this argument from list
-        argv.delete("--colour") # because it was causing bug #14
-        exec parallel_runner_command "rspec", argv
+        argv.delete('--color')  # remove this argument from list
+        argv.delete('--colour') # because it was causing bug #14
+        exec parallel_runner_command 'rspec', argv
       end
 
       def parallel_cucumber_worker
@@ -47,20 +47,20 @@ module Zeus
       private
 
       def parallel_runner_command(suite, argv)
-        env_slave_path = %[PARALLEL_TESTS_EXECUTABLE='#{Worker.command suite}']
+        env_slave_path = %(PARALLEL_TESTS_EXECUTABLE='#{Worker.command suite}')
         "#{env_slave_path} parallel_#{suite} #{merge_argv(argv)}"
       end
 
       def merge_argv(argv)
-        argv.map { |arg|
-          arg.include?(' ') ? %{"#{arg}"} : arg
-        }.join(" ")
+        argv.map do |arg|
+          arg.include?(' ') ? %("#{arg}") : arg
+        end.join(' ')
       end
 
       def spawn_slave
         worker, workers_count, args_file = ARGV
         # Parallels spec reuse main test db instead of db with "1" appended
-        ENV['TEST_ENV_NUMBER'] = test_env_number = (worker == "1" ? nil : worker)
+        ENV['TEST_ENV_NUMBER'] = test_env_number = (worker == '1' ? nil : worker)
         ENV['PARALLEL_TEST_GROUPS'] = workers_count
 
         reconfigure_activerecord test_env_number
@@ -72,6 +72,7 @@ module Zeus
         File.readlines(path).map(&:chomp)
       end
 
+      # rubocop:disable HandleExceptions
       def reconfigure_activerecord(test_env_number)
         return unless defined?(ActiveRecord::Base)
         begin
@@ -87,6 +88,7 @@ module Zeus
         rescue ActiveRecord::AdapterNotSpecified
         end
       end
+      # rubocop:enable HandleExceptions
     end
   end
 end

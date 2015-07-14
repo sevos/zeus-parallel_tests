@@ -7,13 +7,12 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
-gem "rspec-rails"
+gem 'rspec-rails'
 gem 'cucumber-rails', require: false
-gem "zeus-parallel_tests", path: '../../../zeus-parallel_tests'
+gem 'zeus-parallel_tests', path: '../../../zeus-parallel_tests'
 gem 'database_cleaner'
 gem 'turn', require: false
 gem 'guard-rspec'
-
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
