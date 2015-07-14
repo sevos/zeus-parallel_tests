@@ -5,7 +5,7 @@ describe Zeus::ParallelTests::Worker do
     let(:cli_argv) { ['rspec', 'spec/models/model_spec.rb'] }
     let(:cli_env)  { { 'TEST_ENV_NUMBER' => '3' } }
     let(:worker)   { double('worker', spawn: 0) }
-    before  { Zeus::ParallelTests::Worker.stub(new: worker) }
+    before  { allow(Zeus::ParallelTests::Worker).to receive_messages(new: worker) }
     subject { Zeus::ParallelTests::Worker.run(cli_argv, cli_env)  }
 
     it 'creates instance of worker' do
@@ -32,8 +32,8 @@ describe Zeus::ParallelTests::Worker do
     let(:cli_env) { { 'TEST_ENV_NUMBER' => 2, 'PARALLEL_TEST_GROUPS' => 4 } }
     let(:argv_file) { double('argv_file', path: 'argv_file_path', unlink: true, puts: nil, close: nil) }
     before do
-      Tempfile.stub(new: argv_file)
-      worker.stub(system: true)
+      allow(Tempfile).to receive_messages(new: argv_file)
+      allow(worker).to receive_messages(system: true)
     end
 
     it 'writes args to file' do
@@ -53,7 +53,7 @@ describe Zeus::ParallelTests::Worker do
 
     it 'returns exit code' do
       system 'true'
-      expect(worker).to receive(:system) { $CHILD_STATUS.stub(to_i: 1) }
+      expect(worker).to receive(:system) { allow($CHILD_STATUS).to receive_messages(to_i: 1) }
       expect(subject).to eq(1)
     end
   end
