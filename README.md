@@ -1,8 +1,5 @@
 # Zeus::ParallelTests
 
-**WARNING: this gem is not under active development. 
-please contact me, if you would like to maintain it**
-
 [![Build Status](https://travis-ci.org/sevos/zeus-parallel_tests.png?branch=master)](https://travis-ci.org/sevos/zeus-parallel_tests)
 [![Dependency Status](https://gemnasium.com/sevos/zeus-parallel_tests.png)](https://gemnasium.com/sevos/zeus-parallel_tests)
 
