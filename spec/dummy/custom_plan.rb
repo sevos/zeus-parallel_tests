@@ -1,4 +1,4 @@
-require 'zeus/parallel_tests'
+require '../../lib/zeus/parallel_tests'
 
 class CustomPlan < Zeus::ParallelTests::Rails
   # Your custom methods go here
