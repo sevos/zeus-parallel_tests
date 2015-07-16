@@ -12,14 +12,14 @@ dependencies:
     - 'vendor/bundle_1.9'
 
   override:
-    - rvm-exec 2.2 bash -c 'bundle check path=vendor/bundle_2.2 || bundle install --path=vendor/bundle_2.2'
-    - rvm-exec 2.1 bash -c 'bundle check path=vendor/bundle_2.1 || bundle install --path=vendor/bundle_2.1'
-    - rvm-exec 2.0 bash -c 'bundle check path=vendor/bundle_2.0 || bundle install --path=vendor/bundle_2.0'
-    - rvm-exec 1.9 bash -c 'bundle check path=vendor/bundle_1.9 || bundle install --path=vendor/bundle_1.9'
+    - rvm-exec 2.2 bash -c 'bundle check --path=vendor/bundle_2.2 || bundle install --path=vendor/bundle_2.2'
+    - rvm-exec 2.1 bash -c 'bundle check --path=vendor/bundle_2.1 || bundle install --path=vendor/bundle_2.1'
+    - rvm-exec 2.0 bash -c 'bundle check --path=vendor/bundle_2.0 || bundle install --path=vendor/bundle_2.0'
+    - rvm-exec 1.9 bash -c 'bundle check --path=vendor/bundle_1.9 || bundle install --path=vendor/bundle_1.9'
 
 test:
   override:
-    - rvm-exec 2.2 bash -c 'GEM_HOME=vendor/bundle_2.2 bundle exec rake circle:spec'
-    - rvm-exec 2.1 bash -c 'GEM_HOME=vendor/bundle_2.1 bundle exec rake circle:spec'
-    - rvm-exec 2.0 bash -c 'GEM_HOME=vendor/bundle_2.0 bundle exec rake circle:spec'
-    - rvm-exec 1.9 bash -c 'GEM_HOME=vendor/bundle_1.9 bundle exec rake circle:spec'
+    - rvm-exec 2.2 bash -c 'GEM_HOME=./vendor/bundle_2.2 bundle exec rake circle:spec'
+    - rvm-exec 2.1 bash -c 'GEM_HOME=./vendor/bundle_2.1 bundle exec rake circle:spec'
+    - rvm-exec 2.0 bash -c 'GEM_HOME=./vendor/bundle_2.0 bundle exec rake circle:spec'
+    - rvm-exec 1.9 bash -c 'GEM_HOME=./vendor/bundle_1.9 bundle exec rake circle:spec'
