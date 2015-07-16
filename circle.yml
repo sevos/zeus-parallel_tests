@@ -16,7 +16,7 @@ dependencies:
 
 test:
   override:
-    - rvm-exec 2.2 bash -c 'bundle exec rake circle:spec'
-    - rvm-exec 2.1 bash -c 'bundle exec rake circle:spec'
-    - rvm-exec 2.0 bash -c 'bundle exec rake circle:spec'
-    - rvm-exec 1.9 bash -c 'bundle exec rake circle:spec'
+    - rvm-exec 2.2 bash -c 'bundle exec appraisal rake circle:spec'
+    - rvm-exec 2.1 bash -c 'bundle exec appraisal rake circle:spec'
+    - rvm-exec 2.0 bash -c 'bundle exec appraisal rake circle:spec'
+    - rvm-exec 1.9 bash -c 'bundle exec appraisal rake circle:spec'
