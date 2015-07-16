@@ -1,5 +1,6 @@
 dependencies:
   pre:
+    - echo rvm_autoupdate_flag=0 >> ~/.rvmrc
     - rvm install 2.2
     - rvm install 2.1
     - rvm install 2.0
