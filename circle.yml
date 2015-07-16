@@ -13,10 +13,10 @@ dependencies:
     - /home/ubuntu/.rvm/gems/ruby-1.9.3-p551@zeus-parallel_tests
 
   override:
-    - rvm-exec 2.2 bash -c 'bundle check || bundle install'
-    - rvm-exec 2.1 bash -c 'bundle check || bundle install'
-    - rvm-exec 2.0 bash -c 'bundle check || bundle install'
-    - rvm-exec 1.9 bash -c 'bundle check || bundle install'
+    - rvm-exec 2.2 bash -c 'appraisal install'
+    - rvm-exec 2.1 bash -c 'appraisal install'
+    - rvm-exec 2.0 bash -c 'appraisal install'
+    - rvm-exec 1.9 bash -c 'appraisal install'
 
 test:
   override:
