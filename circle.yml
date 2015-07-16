@@ -5,12 +5,21 @@ dependencies:
     - rvm install 2.0
     - rvm install 1.9
 
+  cache_directories:
+    - 'vendor/bundle_2.2'
+    - 'vendor/bundle_2.1'
+    - 'vendor/bundle_2.0'
+    - 'vendor/bundle_1.9'
+
   override:
-    - rvm-exec 2.2 bash -c 'bundle check --path=vendor/bundle || bundle install --path=vendor/bundle'
+    - rvm-exec 2.2 bash -c 'bundle check --path=vendor/bundle || bundle install --path=vendor/bundle_2.2'
+    - rvm-exec 2.1 bash -c 'bundle check --path=vendor/bundle || bundle install --path=vendor/bundle_2.1'
+    - rvm-exec 2.0 bash -c 'bundle check --path=vendor/bundle || bundle install --path=vendor/bundle_2.0'
+    - rvm-exec 1.9 bash -c 'bundle check --path=vendor/bundle || bundle install --path=vendor/bundle_1.9'
 
 test:
   override:
-    - rvm-exec 2.2 bash -c "bundle exec rake circle:spec"
-    - rvm-exec 2.1 bash -c "bundle exec rake circle:spec"
-    - rvm-exec 2.0 bash -c "bundle exec rake circle:spec"
-    - rvm-exec 1.9 bash -c "bundle exec rake circle:spec"
+    - rvm-exec 2.2 bash -c 'bundle exec rake circle:spec'
+    - rvm-exec 2.1 bash -c 'bundle exec rake circle:spec'
+    - rvm-exec 2.0 bash -c 'bundle exec rake circle:spec'
+    - rvm-exec 1.9 bash -c 'bundle exec rake circle:spec'
