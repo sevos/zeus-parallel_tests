@@ -7,7 +7,10 @@ dependencies:
     - rvm install 1.9
 
   cache_directories:
-    - '~/.rvm/gems/'
+    - /home/ubuntu/.rvm/gems/ruby-2.2.1-p598@zeus-parallel_tests
+    - /home/ubuntu/.rvm/gems/ruby-2.1.5-p598@zeus-parallel_tests
+    - /home/ubuntu/.rvm/gems/ruby-2.0.0-p643@zeus-parallel_tests
+    - /home/ubuntu/.rvm/gems/ruby-1.9.3-p551@zeus-parallel_tests
 
   override:
     - rvm-exec 2.2 bash -c 'bundle check || bundle install'
