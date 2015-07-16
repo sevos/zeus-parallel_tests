@@ -4,39 +4,23 @@ require 'zeus/parallel_tests/version'
 require 'open3'
 
 describe 'zeus parallel_rspec spec' do
-  def build_gem(_version = Zeus::ParallelTests::VERSION)
-    system 'gem build zeus-parallel_tests.gemspec &>/dev/null'
-  end
-
-  def install_gem(version = Zeus::ParallelTests::VERSION)
-    system "gem install ./zeus-parallel_tests-#{version}.gem --ignore-dependencies &>/dev/null"
-  end
-
-  def uninstall_gem(version = Zeus::ParallelTests::VERSION)
-    system "echo y | gem uninstall zeus-parallel_tests -v #{version} --quiet &>/dev/null"
-  end
-
   def launch_server
     pid = fork do
-      Dir.chdir 'spec/dummy/'
-      system 'bundle install'
-      exec 'bundle exec zeus start &>/dev/null'
+      Dir.chdir 'spec/dummy/' do
+        exec 'bundle exec zeus --log zeus.log start &>/dev/null'
+      end
     end
     sleep 3
     pid
   end
 
   before(:all) do
-    build_gem
-    install_gem
-    print 'Launch zeus server for dummy app in separate console and press ENTER '
-    $stdin.getc
-    # @server_pid = launch_server.to_i
+    @server_pid = launch_server
     Dir.chdir 'spec/dummy/'
   end
 
   it 'connects to server' do
-    expect(system('zeus r true &>/dev/null')).to be_true
+    expect(system('zeus r true &>/dev/null')).to be_truthy
   end
 
   it 'runs specs in two processes' do
@@ -46,8 +30,7 @@ describe 'zeus parallel_rspec spec' do
   end
 
   after(:all) do
-    # system "kill -9 #{@server_pid.to_s}"
-    # system "rm -fr .zeus.sock"
-    uninstall_gem
+    system('kill', '-9', @server_pid)
+    system('rm', '-f', '.zeus.sock')
   end
 end
