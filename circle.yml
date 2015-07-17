@@ -7,10 +7,10 @@ dependencies:
     - rvm install 1.9
 
   cache_directories:
-    - /home/ubuntu/.rvm/gems/ruby-2.2.1-p598@zeus-parallel_tests
-    - /home/ubuntu/.rvm/gems/ruby-2.1.5-p598@zeus-parallel_tests
-    - /home/ubuntu/.rvm/gems/ruby-2.0.0-p643@zeus-parallel_tests
-    - /home/ubuntu/.rvm/gems/ruby-1.9.3-p551@zeus-parallel_tests
+    - /home/ubuntu/.rvm/gems/ruby-2.2.0/gems/
+    - /home/ubuntu/.rvm/gems/ruby-2.1.5/gems/
+    - /home/ubuntu/.rvm/gems/ruby-2.0.0-p598/gems/
+    - /home/ubuntu/.rvm/gems/ruby-1.9.3-p551/gems/
 
   override:
     - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.13.gemfile'
