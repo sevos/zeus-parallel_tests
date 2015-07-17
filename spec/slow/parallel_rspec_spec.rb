@@ -7,7 +7,7 @@ describe 'zeus parallel_rspec spec' do
   def launch_server
     pid = fork do
       Dir.chdir 'spec/dummy/' do
-        exec 'bundle exec zeus --log zeus.log start &>/dev/null'
+        exec 'bundle exec zeus start &>/dev/null'
       end
     end
     sleep 3
@@ -15,17 +15,22 @@ describe 'zeus parallel_rspec spec' do
   end
 
   before(:all) do
-    @server_pid = launch_server
-    Dir.chdir 'spec/dummy/'
+    @server_pid = launch_server.to_s
   end
 
   it 'connects to server' do
-    expect(system('zeus r true &>/dev/null')).to be_truthy
+    Dir.chdir 'spec/dummy/' do
+      Open3.popen2e('bundle', 'exec', 'zeus', 'r', 'true') do |_, output|
+        expect(output).to be_truthy
+      end
+    end
   end
 
   it 'runs specs in two processes' do
-    Open3.popen2e('zeus', 'parallel_rspec', '-n', '2', 'spec') do |_input, output, _t|
-      expect(output.to_a.map(&:chomp)).to include('2 processes for 2 specs, ~ 1 specs per process')
+    Dir.chdir 'spec/dummy/' do
+      Open3.popen2e('bundle', 'exec', 'zeus', 'parallel_rspec', '-n', '2', 'spec') do |_, output|
+        expect(output.to_a.map(&:chomp)).to include('2 processes for 2 specs, ~ 1 specs per process')
+      end
     end
   end
 
