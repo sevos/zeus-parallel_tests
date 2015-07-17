@@ -1,6 +1,6 @@
 # Zeus::ParallelTests
 
-[![Build Status](https://travis-ci.org/sevos/zeus-parallel_tests.png?branch=master)](https://travis-ci.org/sevos/zeus-parallel_tests)
+[![Circle CI](https://circleci.com/gh/sevos/zeus-parallel_tests.svg?style=svg)](https://circleci.com/gh/sevos/zeus-parallel_tests)
 [![Dependency Status](https://gemnasium.com/sevos/zeus-parallel_tests.png)](https://gemnasium.com/sevos/zeus-parallel_tests)
 
 [Zeus](https://github.com/burke/zeus) is a tool for speeding up your tests by preloading a Rails app.
