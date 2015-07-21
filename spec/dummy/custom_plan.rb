@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'zeus/parallel_tests'
 
 class CustomPlan < Zeus::ParallelTests::Rails

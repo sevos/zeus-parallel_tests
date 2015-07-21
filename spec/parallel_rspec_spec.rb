@@ -1,6 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../../lib', __FILE__)
 
-require 'bundler/setup'
 require 'zeus/parallel_tests/version'
 require 'open3'
 
@@ -43,5 +42,6 @@ describe 'zeus parallel_rspec spec' do
 
   after(:all) do
     system('kill', '-9', @server_pid)
+    system('rm', '-f', 'spec/dummy/Gemfile', 'spec/dummy/Gemfile.lock')
   end
 end
