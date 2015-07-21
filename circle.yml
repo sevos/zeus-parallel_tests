@@ -28,4 +28,4 @@ test:
     - rvm-exec 2.1 bash -c 'bundle exec appraisal rspec'
     - rvm-exec 2.0 bash -c 'bundle exec appraisal rspec'
     - rvm-exec 1.9 bash -c 'bundle exec appraisal rspec'
-    - bundle exec rubocop
+    - rvm-exec 2.2 bash -c 'bundle exec rubocop'
