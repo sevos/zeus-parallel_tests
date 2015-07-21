@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../../lib', __FILE__)
 
 require 'zeus/parallel_tests/version'
 require 'open3'
+require 'English'
 
 describe 'zeus parallel_rspec spec' do
   def launch_server
@@ -28,7 +29,7 @@ describe 'zeus parallel_rspec spec' do
   it 'connects to server' do
     Dir.chdir 'spec/dummy/' do
       system('bundle', 'exec', 'zeus', 'r', 'true')
-      expect($CHILD_STATUS.exitstatus).to eq(0)
+      expect($CHILD_STATUS.success?).to be true
     end
   end
 
