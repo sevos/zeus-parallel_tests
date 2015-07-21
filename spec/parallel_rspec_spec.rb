@@ -43,6 +43,6 @@ describe 'zeus parallel_rspec spec' do
 
   after(:all) do
     system('kill', '-9', @server_pid)
-    system('rm', '-f', 'spec/dummy/Gemfile', 'spec/dummy/Gemfile.lock')
+    system('rm', '-f', 'spec/dummy/Gemfile', 'spec/dummy/Gemfile.lock', 'spec/dummy/.zeus.sock')
   end
 end
