@@ -28,7 +28,7 @@ describe 'zeus parallel_rspec spec' do
   it 'connects to server' do
     Dir.chdir 'spec/dummy/' do
       system('bundle', 'exec', 'zeus', 'r', 'true')
-      expect($?.exitstatus).to eq(0)
+      expect($CHILD_STATUS.exitstatus).to eq(0)
     end
   end
 
