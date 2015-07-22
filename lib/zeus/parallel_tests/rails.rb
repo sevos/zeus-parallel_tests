@@ -5,6 +5,10 @@ module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
       def parallel_cucumber
+        if ENV.key?('RAILS_ENV')
+          puts "Warning: Deleting RAILS_ENV (which is `#{ENV['RAILS_ENV']}` as Zeus will complain about it."
+          ENV.delete('RAILS_ENV')
+        end
         exec parallel_runner_command 'cucumber', ARGV
       end
 
@@ -35,11 +39,13 @@ module Zeus
         end
       end
 
+      def cucumber_environment
+        require 'cucumber/rspec/disable_option_parser'
+        require 'cucumber/cli/main'
+      end
+
       def cucumber(argv = ARGV)
-        cucumber_main = Cucumber::Cli::Main.new(argv.dup)
-        had_failures = cucumber_main.execute!(@cucumber_runtime)
-        exit_code = had_failures ? 1 : 0
-        exit exit_code
+        ::Cucumber::Cli::Main.execute(argv)
       end
 
       # End of patches for Zeus

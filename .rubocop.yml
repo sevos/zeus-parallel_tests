@@ -1,6 +1,8 @@
 AllCops:
   Exclude:
     - bin/**/*
+    - vendor/**/*
+    - spec/dummy/vendor/**/*
 
 Documentation:
   Enabled: false
