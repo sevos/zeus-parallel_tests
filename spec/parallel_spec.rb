@@ -8,7 +8,7 @@ describe 'zeus parallel spec' do
   def launch_server
     pid = fork do
       Dir.chdir 'spec/dummy/' do
-        exec 'bundle exec zeus start &>/dev/null'
+        exec 'bundle exec zeus start > /dev/null'
       end
     end
     sleep 3
