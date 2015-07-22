@@ -2,6 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/sevos/zeus-parallel_tests.svg?style=svg)](https://circleci.com/gh/sevos/zeus-parallel_tests)
 [![Dependency Status](https://gemnasium.com/sevos/zeus-parallel_tests.png)](https://gemnasium.com/sevos/zeus-parallel_tests)
+[![Gem Version](https://badge.fury.io/rb/zeus-parallel_tests.svg)](http://badge.fury.io/rb/zeus-parallel_tests)
 
 [Zeus](https://github.com/burke/zeus) is a tool for speeding up your tests by preloading a Rails app.
 [parallel_tests](https://github.com/grosser/parallel_tests) also speeds up your tests by running them, well,
