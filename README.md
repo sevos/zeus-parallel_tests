@@ -67,13 +67,9 @@ Ready to go?
   
 [RailsCast episode #413 Fast Tests](http://railscasts.com/episodes/413-fast-tests)  
 
-Got Zeus 0.15.x? Add this line to your application's Gemfile:
+Add this line to your application's Gemfile:
 
     gem 'zeus-parallel_tests'
-
-Need Zeus 0.13.x? Use the 0.2.x branch:
-
-    gem 'zeus-parallel_tests', '0.2.5'
 
 And then execute:
 
