@@ -1,6 +1,22 @@
 require_relative '../parallel_tests'
 require_relative 'worker'
 
+# Patches required for parallel_tests
+
+module ParallelTests
+  module Tasks
+    class << self
+      def rails_env
+        # parallel_tests sets this to 'test' by default - this must be
+        # overridden because Zeus does not support $RAILS_ENV being set
+        nil
+      end
+    end
+  end
+end
+
+# End of patches for parallel_test
+
 module Zeus
   module ParallelTests
     class Rails < ::Zeus::Rails
