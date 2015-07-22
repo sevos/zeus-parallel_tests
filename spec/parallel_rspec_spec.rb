@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../../lib', __FILE__)
 
 require 'zeus/parallel_tests/version'
 require 'open3'
+require 'system'
 require 'English'
 
 describe 'zeus parallel_rspec spec' do
@@ -45,7 +46,7 @@ describe 'zeus parallel_rspec spec' do
   it 'runs cucumbers in two processes' do
     Dir.chdir 'spec/dummy' do
       Open3.popen2e('bundle', 'exec', 'zeus', 'parallel_cucumber', '-n', '2', 'features') do |_, output|
-        expect(output.to_a.map(&:chomp)).to include('8 processes for 1 features, ~ 0 features per process')
+        expect(output.to_a.map(&:chomp)).to include("#{System::CPU.count} processes for 1 features, ~ 0 features per process")
       end
     end
   end
