@@ -44,7 +44,7 @@ describe 'zeus parallel spec' do
   it 'runs cucumbers in two processes' do
     Dir.chdir 'spec/dummy' do
       Open3.popen2e('bundle', 'exec', 'zeus', 'parallel_cucumber', '-n', '2', 'features') do |_, output|
-        expect(output.to_a.map(&:chomp)).to include('2 processes for 2 features, ~ 0 features per process')
+        expect(output.to_a.map(&:chomp)).to include('2 processes for 2 features, ~ 1 features per process')
       end
     end
   end

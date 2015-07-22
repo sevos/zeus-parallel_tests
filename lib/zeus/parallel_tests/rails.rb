@@ -41,11 +41,11 @@ module Zeus
 
       def cucumber_environment
         require 'cucumber/rspec/disable_option_parser'
-        require 'parallel_tests'
+        require 'cucumber/cli/main'
       end
 
       def cucumber(argv = ARGV)
-        ::ParallelTests::CLI.new.run(['--type', 'cucumber'] + argv)
+        ::Cucumber::Cli::Main.execute(argv)
       end
 
       # End of patches for Zeus
