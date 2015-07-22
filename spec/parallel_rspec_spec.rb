@@ -33,10 +33,19 @@ describe 'zeus parallel_rspec spec' do
     end
   end
 
-  it 'runs specs in two processes' do
+  it 'runs rspec specs in two processes' do
     Dir.chdir 'spec/dummy' do
       Open3.popen2e('bundle', 'exec', 'zeus', 'parallel_rspec', '-n', '2', 'spec') do |_, output|
         expect(output.to_a.map(&:chomp)).to include('2 processes for 2 specs, ~ 1 specs per process')
+      end
+    end
+  end
+
+  # TODO: Make parallel_cumber respect -n parameter.
+  it 'runs cucumbers in two processes' do
+    Dir.chdir 'spec/dummy' do
+      Open3.popen2e('bundle', 'exec', 'zeus', 'parallel_cucumber', '-n', '2', 'features') do |_, output|
+        expect(output.to_a.map(&:chomp)).to include('8 processes for 1 features, ~ 0 features per process')
       end
     end
   end
