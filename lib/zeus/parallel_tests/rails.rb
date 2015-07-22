@@ -13,6 +13,10 @@ module Zeus
       end
 
       def parallel_rspec
+        if ENV.key?('RAILS_ENV')
+          puts "Warning: Deleting RAILS_ENV (which is `#{ENV['RAILS_ENV']}` as Zeus will complain about it."
+          ENV.delete('RAILS_ENV')
+        end
         argv = ARGV.dup
         argv.delete('--color')  # remove this argument from list
         argv.delete('--colour') # because it was causing bug #14
