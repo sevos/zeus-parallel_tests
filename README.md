@@ -111,6 +111,7 @@ or your cucumbers:
 * rspec
 * cucumber
 * guard-rspec since v2.5.2 (just pass `zeus: true` and `parallel: true` into configuration hash, you can play with `bundler: false` option to speed things up)
+* caching: you must set `config.cache_store = :memory_store` as Zeus will not reload the various cache files used by parallel_tests instances
 
 ## TODO
 
