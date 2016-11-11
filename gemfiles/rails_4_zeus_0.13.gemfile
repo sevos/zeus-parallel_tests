@@ -2,7 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "rails", "4.2.3"
-gem "zeus", "0.13.3"
+gem "rails", "~> 4.2.3"
+gem "zeus", "~> 0.13.3"
+gem "ruby_dep", "< 1.4.0"
+gem "listen", "< 3.1.0"
 
 gemspec :path => "../"
