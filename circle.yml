@@ -1,39 +1,32 @@
 dependencies:
   pre:
     - echo rvm_autoupdate_flag=0 >> ~/.rvmrc
+    - rvm install 2.3
     - rvm install 2.2
     - rvm install 2.1
-    - rvm install 2.0
-    - rvm install 1.9
 
   cache_directories:
+    - /home/ubuntu/.rvm/gems/ruby-2.3.0
     - /home/ubuntu/.rvm/gems/ruby-2.2.0
     - /home/ubuntu/.rvm/gems/ruby-2.1.5
-    - /home/ubuntu/.rvm/gems/ruby-2.0.0-p598
-    - /home/ubuntu/.rvm/gems/ruby-1.9.3-p551
 
   override:
-    - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.15.gemfile'
+    - rvm-exec 2.3 bash -c 'bundle check --gemfile=gemfiles/rails_5_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_5_zeus_0.15.gemfile'
+    - rvm-exec 2.3 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.15.gemfile'
+    - rvm-exec 2.3 bash -c 'bundle check --gemfile=gemfiles/rails_5_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_5_zeus_0.13.gemfile'
+    - rvm-exec 2.3 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.13.gemfile'
+    - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_5_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_5_zeus_0.15.gemfile'
     - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.15.gemfile'
-    - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.13.gemfile'
+    - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_5_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_5_zeus_0.13.gemfile'
     - rvm-exec 2.2 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.13.gemfile'
-    - rvm-exec 2.1 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.15.gemfile'
     - rvm-exec 2.1 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.15.gemfile'
-    - rvm-exec 2.1 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.13.gemfile'
     - rvm-exec 2.1 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.13.gemfile'
-    - rvm-exec 2.0 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.15.gemfile'
-    - rvm-exec 2.0 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.15.gemfile'
-    - rvm-exec 2.0 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.13.gemfile'
-    - rvm-exec 2.0 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.13.gemfile'
-    - rvm-exec 1.9 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.15.gemfile'
-    - rvm-exec 1.9 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.15.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.15.gemfile'
-    - rvm-exec 1.9 bash -c 'bundle check --gemfile=gemfiles/rails_3_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_3_zeus_0.13.gemfile'
-    - rvm-exec 1.9 bash -c 'bundle check --gemfile=gemfiles/rails_4_zeus_0.13.gemfile || bundle install --gemfile=gemfiles/rails_4_zeus_0.13.gemfile'
 
 test:
   override:
+    - rvm-exec 2.3 bash -c 'bundle exec appraisal rspec'
     - rvm-exec 2.2 bash -c 'bundle exec appraisal rspec'
-    - rvm-exec 2.1 bash -c 'bundle exec appraisal rspec'
-    - rvm-exec 2.0 bash -c 'bundle exec appraisal rspec'
-    - rvm-exec 1.9 bash -c 'bundle exec appraisal rspec'
-    - rvm-exec 2.2 bash -c 'bundle exec rubocop'
+      # Rails 5 requires Ruby 2.2.2
+    - rvm-exec 2.1 bash -c 'bundle exec appraisal rails-4-zeus-0.15 rspec'
+    - rvm-exec 2.1 bash -c 'bundle exec appraisal rails-4-zeus-0.13 rspec'
+    - rvm-exec 2.3 bash -c 'bundle exec rubocop'

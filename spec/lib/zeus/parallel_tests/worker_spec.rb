@@ -6,7 +6,7 @@ describe Zeus::ParallelTests::Worker do
     let(:cli_env)  { { 'TEST_ENV_NUMBER' => '3' } }
     let(:worker)   { double('worker', spawn: 0) }
     before  { allow(Zeus::ParallelTests::Worker).to receive_messages(new: worker) }
-    subject { Zeus::ParallelTests::Worker.run(cli_argv, cli_env)  }
+    subject { Zeus::ParallelTests::Worker.run(cli_argv, cli_env) }
 
     it 'creates instance of worker' do
       expect(Zeus::ParallelTests::Worker).to receive(:new)
@@ -53,7 +53,7 @@ describe Zeus::ParallelTests::Worker do
 
     it 'returns exit code' do
       system 'true'
-      expect(worker).to receive(:system) { allow($CHILD_STATUS).to receive_messages(to_i: 1) }
+      expect(worker).to receive(:system) { allow($CHILD_STATUS).to receive_messages(exitstatus: 1) }
       expect(subject).to eq(1)
     end
   end
