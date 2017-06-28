@@ -86,7 +86,7 @@ module Zeus
       def spawn_slave
         worker, workers_count, args_file = ARGV
         # Parallels spec reuse main test db instead of db with "1" appended
-        ENV['TEST_ENV_NUMBER'] = test_env_number = (worker == '1' ? nil : worker)
+        ENV['TEST_ENV_NUMBER'] = test_env_number = (worker == '1' ? '' : worker)
         ENV['PARALLEL_TEST_GROUPS'] = workers_count
 
         reconfigure_activerecord test_env_number
