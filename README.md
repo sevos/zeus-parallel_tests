@@ -1,5 +1,6 @@
 # Zeus::ParallelTests
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 [![Circle CI](https://circleci.com/gh/sevos/zeus-parallel_tests.svg?style=svg)](https://circleci.com/gh/sevos/zeus-parallel_tests)
 [![Dependency Status](https://gemnasium.com/sevos/zeus-parallel_tests.png)](https://gemnasium.com/sevos/zeus-parallel_tests)
 [![Gem Version](https://badge.fury.io/rb/zeus-parallel_tests.svg)](http://badge.fury.io/rb/zeus-parallel_tests)
