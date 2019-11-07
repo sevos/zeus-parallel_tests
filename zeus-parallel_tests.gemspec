@@ -24,13 +24,15 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop', '<= 0.35.1'
   spec.add_development_dependency 'rspec', '>= 3.0'
 
   # Gems used by dummy app in testing.
-  spec.add_development_dependency 'cucumber-rails'
+  spec.add_development_dependency 'cucumber-core', '<= 3.0.0'
+  spec.add_development_dependency 'cucumber-rails', '<= 1.5.0'
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'guard-rspec'
+  spec.add_development_dependency 'rainbow', '<= 2.2.2'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'sqlite3'
 end

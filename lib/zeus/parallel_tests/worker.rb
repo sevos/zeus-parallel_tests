@@ -1,5 +1,6 @@
 require_relative '../parallel_tests'
 require 'tempfile'
+require 'English'
 
 module Zeus
   module ParallelTests
@@ -22,7 +23,7 @@ module Zeus
       def spawn
         system %(zeus parallel_#{@suite}_worker #{parallel_tests_attributes})
         args_file.unlink
-        $CHILD_STATUS.to_i
+        ($CHILD_STATUS && $CHILD_STATUS.exitstatus) || 1
       end
 
       private
